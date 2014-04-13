@@ -1,0 +1,14 @@
+*.mod
+*.o
+*.dwarf
+*.sublime*
+*.eps
+*.dat
+*.exe
+*.pyc
+_in_*
+*tags*
+*.log
+*.out
+*.swp
+*.conf
