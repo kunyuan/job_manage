@@ -7,9 +7,6 @@ import subprocess
 import logging
 
 #IsCluster=True
-IsCluster=False
-TurnOnLoop=False
-cpu=4
 #sourcedir="."
 execute="./monte_carlo.exe"
 loop_execute=['python','./run_self_consistent.py']

@@ -1,0 +1,15 @@
+1    #PID
+2    #Type: MC
+4    #Lx
+4    #Ly
+1.0    #Jcp
+0.9    #Beta
+2    #Order
+.true.    #IsLoad
+.true.    #IsForever
+1000    #Toss
+1000000    #Sample
+10    #Sweep
+-332339440    #Seed
+0.5    #Worm/Norm
+1,5    #Reweight
