@@ -1,13 +1,17 @@
-#Please define your job dictionary here
-from job_class import *
-cpu=4
-ToDo=[]
+'''This is the input file of all jobs. 
+   You have to add new job objects to TO_DO list
+   if you want to run simulation.'''
+import job_class as job
+CPU = 4
+SLEEP = 10   #check job status for every SLEEP seconds
+TO_DO = []
 
 # monte carlo job defintion
-ToDo.append(JobMonteCarlo({   
+TO_DO.append(job.JobMonteCarlo({
     "__Execute" : "./monte_carlo.exe",
     "__Duplicate" : 3,
     "__IsCluster" : False,
+    "__AutoRun" : True,
     "IsForever" : True,
     "Sample" : 1000000,
     "Sweep" : 10,
@@ -24,10 +28,11 @@ ToDo.append(JobMonteCarlo({
 }))
 
 # self consist loop job definition
-ToDo.append(JobConsistLoop({   
-    "__Execute" : "./run_self_consistent.py",
+TO_DO.append(job.JobConsistLoop({   
+    "__Execute" : ["python", "./run_self_consistent.py"],
     "__Duplicate" : 1,
     "__IsCluster" : False,
+    "__AutoRun" : True,
     "IsLoad" : True,
     "Lx" :  4,
     "Ly" :  4,
@@ -38,10 +43,11 @@ ToDo.append(JobConsistLoop({
 }))
 
 # output loop job definition
-ToDo.append(JobOutputLoop({   
-    "__Execute" : "./run_self_consistent.py",
+TO_DO.append(job.JobOutputLoop({   
+    "__Execute" : ["python", "./run_self_consistent.py"],
     "__Duplicate" : 1,
     "__IsCluster" : False,
+    "__AutoRun" : False,
     "IsLoad" : True,
     "Lx" :  4,
     "Ly" :  4,
@@ -51,7 +57,7 @@ ToDo.append(JobOutputLoop({
     "ReadFile" : "0.90_1_coll",
 }))
 
-if __name__=="__main__":
-    for e in ToDo:
-	print e.ToString(1)+"\n"
+if __name__ == "__main__":
+    for e in TO_DO:
+        print e.ToString(1)+"\n"
 
