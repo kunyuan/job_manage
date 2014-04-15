@@ -12,3 +12,5 @@ _in_*
 *.out
 *.swp
 *.conf
+outfile*
+infile*

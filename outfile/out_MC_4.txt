@@ -1,7 +1,0 @@
- /home/kun/project/job_manage/infile/_in_MC_4                                   
-                      
- Opened!
-           1
- weight   1.00000000000000     
- Sleep for 10s
- Sleep for another 10s
