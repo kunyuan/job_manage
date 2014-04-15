@@ -5,7 +5,6 @@ import os
 import time
 import subprocess
 import logging
-import StringIO
 
 import inlist
 
