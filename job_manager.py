@@ -22,9 +22,9 @@ class JobAtom():
     def __init__(self, pid, bundle):
         self.pid = pid
         if type(bundle.execute) is str:
-            self.execute = [bundle.execute]
-        elif type(bundle.execute) is list:
             self.execute = bundle.execute
+        elif type(bundle.execute) is list:
+            self.execute = " ".join(bundle.execute)
         else:
             print "Jobs.execute should be a list or str!"
 
@@ -116,8 +116,8 @@ def submit_job(job_atom):
             print "You have to run "+job_atom.get_job_name()+" by yourself!"
     else:
         if job_atom.auto_run:
-            proc = subprocess.Popen(job_atom.execute, stdin = subprocess.PIPE,
-                    stdout = open(outfile, "a"))
+            proc = subprocess.Popen(job_atom.execute+" >> "+infile, stdin = subprocess.PIPE, 
+                shell=True)
             proc.stdin.write(infile)
             proc.stdin.close()
             if job_atom.keep_cpu_busy:
