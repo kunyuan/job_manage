@@ -76,7 +76,7 @@ def check_status():
 
 def submit_job(job_atom):
     '''submit a job to cluster or your own computer'''
-    topstr = "top -p"
+    #topstr = "top -p"
 
     if(os.path.exists(INFILEPATH) is not True):
         os.system("mkdir "+INFILEPATH)
@@ -116,27 +116,26 @@ def submit_job(job_atom):
             print "You have to run "+job_atom.get_job_name()+" by yourself!"
     else:
         if job_atom.auto_run:
-            proc = subprocess.Popen(job_atom.execute+" >> "+infile, stdin = subprocess.PIPE, 
-                shell=True)
-            proc.stdin.write(infile)
-            proc.stdin.close()
+            shellstr = "echo "+infile+" | "+job_atom.execute+" >> "+outfile
+            proc = subprocess.Popen(shellstr, shell=True)
             if job_atom.keep_cpu_busy:
                 PROCLIST.append((proc, job_atom))
 
-            topstr = topstr+str(proc.pid)+","
+            #topstr = topstr+str(proc.pid)+","
 
-            f_temp = open("./mytop.sh","w")
-            f_temp.write(topstr[:-1])
-            f_temp.close()
-            os.system("chmod +x ./mytop.sh")
-            if job_atom.keep_cpu_busy is False:
-                f_temp = open("./kill_loop.sh","a")
-                f_temp.write("kill -9 "+str(proc.pid))
-                f_temp.close()
-                os.system("chmod +x ./kill_loop.sh")
+            #f_temp = open("./tools/mytop.sh","w")
+            #f_temp.write(topstr[:-1])
+            #f_temp.close()
+            #os.system("chmod +x ./tools/mytop.sh")
+            #if job_atom.keep_cpu_busy is False:
+                #f_temp = open("./tools/kill_loop.sh","a")
+                #f_temp.write("kill -9 "+str(proc.pid))
+                #f_temp.close()
+                #os.system("chmod +x ./tools/kill_loop.sh")
 
             logging.info(job_atom.get_job_name()+" is started...")
             logging.info("input:\n"+job_atom.input_str)
+            logging.info("PID:{}\n".format(proc.pid))
             print job_atom.get_job_name()+" is started..."
         else:
             print "You have to run "+job_atom.get_job_name()+" by yourself!"
@@ -145,7 +144,7 @@ def submit_job(job_atom):
 if __name__ == "__main__":
     logging.info("Jobs manage daemon is started...")
     JOBQUEUE = construct_job_queue(inlist.TO_DO)
-    print [e.keep_cpu_busy for e in JOBQUEUE]
+    #print [e.keep_cpu_busy for e in JOBQUEUE]
     i = 0
     for ATOM in JOBQUEUE: 
         while ATOM.is_cluster is False and len(PROCLIST)>=inlist.CPU:

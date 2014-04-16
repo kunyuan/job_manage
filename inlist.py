@@ -8,15 +8,15 @@ TO_DO = []
 
 # monte carlo job defintion
 TO_DO.append(job.JobMonteCarlo({
-    "__Execute" : "./monte_carlo.exe",
-    "__Duplicate" : 3,
+    "__Execute" : "./gamma3.exe",
+    "__Duplicate" : 4,
     "__IsCluster" : False,
     "__AutoRun" : True,
     "IsForever" : True,
     "Sample" : 1000000,
     "Sweep" : 10,
     "Toss" : 1000,
-    "IsLoad" : True,
+    "IsLoad" : False,
     "Lx" :  4,
     "Ly" :  4,
     "Jcp" :  1.0,
@@ -29,8 +29,8 @@ TO_DO.append(job.JobMonteCarlo({
 
 # self consist loop job definition
 TO_DO.append(job.JobConsistLoop({   
-    "__Execute" : ["python", "./run_self_consistent.py"],
-    "__Duplicate" : 1,
+    "__Execute" : ["python", "./run_loop.py"],
+    "__Duplicate" : 0,
     "__IsCluster" : False,
     "__AutoRun" : True,
     "IsLoad" : True,
@@ -44,10 +44,10 @@ TO_DO.append(job.JobConsistLoop({
 
 # output loop job definition
 TO_DO.append(job.JobOutputLoop({   
-    "__Execute" : ["python", "./run_self_consistent.py"],
-    "__Duplicate" : 1,
+    "__Execute" : ["python", "./run_loop.py"],
+    "__Duplicate" : 0,
     "__IsCluster" : False,
-    "__AutoRun" : False,
+    "__AutoRun" : True,
     "IsLoad" : True,
     "Lx" :  4,
     "Ly" :  4,
@@ -55,6 +55,20 @@ TO_DO.append(job.JobOutputLoop({
     "Beta" :  0.9,
     "Order" :  1,
     "ReadFile" : "0.90_1_coll",
+}))
+
+# output numerical integration job definition
+TO_DO.append(job.JobIntegration({   
+    "__Execute" : ["./gamma3.exe"],
+    "__Duplicate" : 0,
+    "__IsCluster" : False,
+    "__AutoRun" : True,
+    "IsLoad" : True,
+    "Lx" :  4,
+    "Ly" :  4,
+    "Jcp" :  1.0,
+    "Beta" :  0.9,
+    "Order" :  1,
 }))
 
 if __name__ == "__main__":

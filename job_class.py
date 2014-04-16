@@ -125,13 +125,26 @@ class JobOutputLoop(Job):
     def __init__(self, para):
         Job.__init__(self, para)
         self.keep_cpu_busy = False
-        self.para["Type: OL"] = 3
+        self.para["Type: OL"] = 4
         self.name = "OL"
 
     def to_string(self, pid=0):
         input_str = Job.to_string(self, pid)
         input_str += self.key_to_string("Type: OL")
         input_str += self.key_to_string("ReadFile")
+        return input_str
+
+class JobIntegration(Job):
+    '''job subclass for numerical integration jobs'''
+    def __init__(self, para):
+        Job.__init__(self, para)
+        self.keep_cpu_busy = False
+        self.para["Type: NI"] = 3
+        self.name = "NI"
+
+    def to_string(self, pid=0):
+        input_str = Job.to_string(self, pid)
+        input_str += self.key_to_string("Type: NI")
         return input_str
 
 if __name__ == "__main__":
